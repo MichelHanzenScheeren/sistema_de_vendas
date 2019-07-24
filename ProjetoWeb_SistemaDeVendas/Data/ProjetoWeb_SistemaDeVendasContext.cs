@@ -13,6 +13,8 @@ namespace ProjetoWeb_SistemaDeVendas.Models
         {
         }
 
-        public DbSet<ProjetoWeb_SistemaDeVendas.Models.Department> Department { get; set; }
+        public DbSet<Department> Department { get; set; }
+        public DbSet<Seller> Seller { get; set; }
+        public DbSet<SalesRecord> SalesRecord { get; set; }
     }
 }
