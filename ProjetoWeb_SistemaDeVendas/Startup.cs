@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ProjetoWeb_SistemaDeVendas.Models;
+using ProjetoWeb_SistemaDeVendas.Data;
 
 namespace ProjetoWeb_SistemaDeVendas
 {
@@ -37,15 +38,19 @@ namespace ProjetoWeb_SistemaDeVendas
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ProjetoWeb_SistemaDeVendasContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ProjetoWeb_SistemaDeVendasContext")));
+                    options.UseMySql(Configuration.GetConnectionString("ProjetoWeb_SistemaDeVendasContext"), builder => 
+                    builder.MigrationsAssembly("ProjetoWeb_SistemaDeVendas")));
+
+            services.AddScoped<SeedingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed();
             }
             else
             {
