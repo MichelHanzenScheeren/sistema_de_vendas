@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<ProjetoWeb_SistemaDeVendas.Models.Department>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "DEPARTMENTS";
 }
 
-<h1>Departments</h1>
+<p><h1> @ViewData["Title"] </h1></p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<a asp-action="Create" class="btn-link text-success"> Create New </a>
+
+<table class="table table-hover">
+    <thead class="table-active">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -19,17 +18,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a class="badge badge-pill badge-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a> /
+                    <a class="badge badge-pill badge-light" asp-action="Details" asp-route-id="@item.Id">Details</a> / 
+                    <a class="badge badge-pill badge-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,36 +1,38 @@
 ﻿@model ProjetoWeb_SistemaDeVendas.Models.Seller
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "DELETE SELLER";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<h4> Are you Sure You Want To Delete This? </h4>
+<p> <h1>@ViewData["Title"]</h1> </p>
+<hr />
 
 <div>
-    <hr />
-    <h5>Seller</h5>
-    <hr />
-    <dl class="d-lg-block">
-        <dt> @Html.DisplayNameFor(model => model.Name)</dt>
-        <dd> @Html.DisplayFor(model => model.Name) </dd>
+    <table class="table table-hover">
+        <thead class="table-active">
+            <tr>
+                <th> @Html.DisplayNameFor(model => model.Name)</th>
+                <th> @Html.DisplayNameFor(model => model.Email)</th>
+                <th> @Html.DisplayNameFor(model => model.BirthDate)</th>
+                <th> @Html.DisplayNameFor(model => model.BaseSalary)</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td> @Html.DisplayFor(model => model.Name) </td>
+                    <td> @Html.DisplayFor(model => model.Email) </td>
+                    <td> @Html.DisplayFor(model => model.BirthDate) </td>
+                    <td> @Html.DisplayFor(model => model.BaseSalary) </td>
 
-        <dt> @Html.DisplayNameFor(model => model.BirthDate)</dt>
-        <dd> @Html.DisplayFor(model => model.BirthDate) </dd>
-
-        <dt> @Html.DisplayNameFor(model => model.BaseSalary)</dt>
-        <dd> @Html.DisplayFor(model => model.BaseSalary) </dd>
-
-        <dt> @Html.DisplayNameFor(model => model.Email)</dt>
-        <dd> @Html.DisplayFor(model => model.Email) </dd>
-    </dl>
-
+                </tr>
+        </tbody>
+    </table>
+    <hr /> 
+    <h3> Are you Sure You Want To Delete This? </h3>
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" />
         &ensp;
-        <a asp-action="Index">Back To List</a>
+        <a asp-action="Index" class="btn-link text-info" >Back To List</a>
     </form>
-
 </div>

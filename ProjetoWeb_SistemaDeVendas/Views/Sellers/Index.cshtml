@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<ProjetoWeb_SistemaDeVendas.Models.Seller>
 
 @{
-    ViewData["Title"] = "Seller";
+    ViewData["Title"] = "SELLER";
 }
 
-<h1>@ViewData["Title"]</h1>
-<a asp-action="Create"class="btn-link btn">Create New</a>
+<p> <h1>@ViewData["Title"]</h1> </p>
 
-<table class="table table-striped table-hover">
-    <thead class="alert-danger text-white">
+<a asp-action="Create" class="btn-link text-success">Create New</a>
+
+<table class="table table-hover">
+    <thead class="table-active">
         <tr>
             <th> @Html.DisplayNameFor(model => model.Name)</th>
             <th> @Html.DisplayNameFor(model => model.Email)</th>
@@ -27,9 +28,9 @@
                 <td> @Html.DisplayFor(modelItem => item.BaseSalary) </td>
 
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">/Details</a> 
-                    <a asp-action="Delete" asp-route-id="@item.Id">/Delete</a> 
+                    <a class="badge badge-pill badge-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a> / 
+                    <a class="badge badge-pill badge-light" asp-action="Details" asp-route-id="@item.Id">Details</a> / 
+                    <a class="badge badge-pill badge-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
 
             </tr>

@@ -1,10 +1,9 @@
 ﻿@model  ProjetoWeb_SistemaDeVendas.Models.ViewModels.SellerFormViewModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CREATE NEW SELLER";
 }
 
-<h2> @ViewData["Title"] </h2>
-<h4>Seller</h4>
+<p> <h1> @ViewData["Title"] </h1> </p>
 <hr />
 <div class="row">
     <div class="col-md-6">
@@ -29,8 +28,9 @@
                 <label asp-for="Seller.DepartmentId" class="control-label"></label>
                 <select asp-for="Seller.DepartmentId" asp-items="@(new SelectList(Model.Departments, "Id", "Name"))" class="form-control"></select>
             </div>
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-outline-danger btn-dark" />
+                <input type="submit" value="Create" class="btn btn-danger btn-lg" />
             </div>
         </form>
     </div>
