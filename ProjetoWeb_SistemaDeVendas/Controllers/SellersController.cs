@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoWeb_SistemaDeVendas.Models;
 using ProjetoWeb_SistemaDeVendas.Models.ViewModels;
 using ProjetoWeb_SistemaDeVendas.Service;
+using ProjetoWeb_SistemaDeVendas.Service.Exceptions;
 
 namespace ProjetoWeb_SistemaDeVendas.Controllers
 {
@@ -70,6 +71,41 @@ namespace ProjetoWeb_SistemaDeVendas.Controllers
                 return NotFound();
 
             return View(seller);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var seller = _sellerService.FindById(id.Value);
+            if (seller == null)
+                return NotFound();
+
+            var departments = _departmentService.FindAll();
+            var viewModel = new SellerFormViewModel { Departments = departments, Seller = seller };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            if (id != seller.Id)
+                return BadRequest();
+            try
+            {
+                _sellerService.Update(seller);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }            
         }
     }
 }

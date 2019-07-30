@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoWeb_SistemaDeVendas.Models;
+using ProjetoWeb_SistemaDeVendas.Service.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,23 @@ namespace ProjetoWeb_SistemaDeVendas.Service
             var seller = FindById(id);
             _context.Seller.Remove(seller);
             _context.SaveChanges();
+        }
+
+        public void Update(Seller seller)
+        {
+            if (!_context.Seller.Any(x => x.Id == seller.Id))
+                throw new NotFoundException("ID NOT FOUND!");
+
+            try
+            {
+                _context.Update(seller);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
+            
         }
     }
 }
