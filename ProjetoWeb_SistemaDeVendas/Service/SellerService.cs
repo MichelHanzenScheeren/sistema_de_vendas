@@ -1,4 +1,5 @@
-﻿using ProjetoWeb_SistemaDeVendas.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoWeb_SistemaDeVendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace ProjetoWeb_SistemaDeVendas.Service
 
         public Seller FindById(int id)
         {
-            return _context.Seller.FirstOrDefault(x => x.Id == id);
+            return _context.Seller.Include(x => x.Department).FirstOrDefault(x => x.Id == id);
         }
 
         public void Remove(int id)
