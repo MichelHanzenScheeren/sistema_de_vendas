@@ -17,38 +17,39 @@ namespace ProjetoWeb_SistemaDeVendas.Service
             _context = context;
         }
 
-        public List<Seller> FindAll()
-        {
-            return _context.Seller.ToList();
-        }
-
-        public void Insert(Seller seller)
+        public async Task InsertAsync(Seller seller)
         {
             _context.Add(seller);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Seller FindById(int id)
+        public async Task<List<Seller>> FindAllAsync()
         {
-            return _context.Seller.Include(x => x.Department).FirstOrDefault(x => x.Id == id);
+            return await _context.Seller.ToListAsync();
         }
 
-        public void Remove(int id)
+        public async Task<Seller> FindByIdAsync(int id)
         {
-            var seller = FindById(id);
+            return await _context.Seller.Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            var seller = await _context.Seller.FindAsync(id);
             _context.Seller.Remove(seller);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Seller seller)
+        public async Task UpdateAsync(Seller seller)
         {
-            if (!_context.Seller.Any(x => x.Id == seller.Id))
+            bool any = await _context.Seller.AnyAsync(x => x.Id == seller.Id);
+            if (!any)
                 throw new NotFoundException("ID NOT FOUND!");
 
             try
             {
                 _context.Update(seller);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {
