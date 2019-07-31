@@ -32,10 +32,16 @@ namespace ProjetoWeb_SistemaDeVendas.Controllers
         {
             var sales = from obj in _context.SalesRecord select obj;
             if (minDate.HasValue)
+            {
                 sales = sales.Where(x => x.Date >= minDate.Value);
-            if(maxDate.HasValue)
-                sales = sales.Where(x => x.Date <= maxDate.Value);
+                ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
+            }
 
+            if (maxDate.HasValue)
+            {
+                sales = sales.Where(x => x.Date <= maxDate.Value);
+                ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
+            }
             return View(await sales.Include(x => x.Seller).OrderByDescending(x => x.Date).ToListAsync());
         }
 
