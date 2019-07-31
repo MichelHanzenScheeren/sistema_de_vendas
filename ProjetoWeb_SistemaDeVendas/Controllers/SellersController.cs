@@ -61,8 +61,15 @@ namespace ProjetoWeb_SistemaDeVendas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _sellerService.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _sellerService.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException erro)
+            {
+                return RedirectToAction(nameof(Error), new { message = "NÃO É POSSÍVEL CONCLUIR O PEDIDO, POIS ELE VIOLA O PRINCÍPIO DE INTEGRIADE REFERENCIAL!!" });
+            } 
         }
 
         public async Task<IActionResult> Details(int? id)
