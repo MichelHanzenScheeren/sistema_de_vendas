@@ -22,8 +22,21 @@ namespace ProjetoWeb_SistemaDeVendas.Controllers
         // GET: SalesRecords
         public async Task<IActionResult> Index()
         {
-            var projetoWeb_SistemaDeVendasContext = _context.SalesRecord.Include(s => s.Seller);
+            var projetoWeb_SistemaDeVendasContext = _context.SalesRecord.Include(s => s.Seller).OrderByDescending(x => x.Date);
             return View(await projetoWeb_SistemaDeVendasContext.ToListAsync());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(DateTime? minDate, DateTime? maxDate)
+        {
+            var sales = from obj in _context.SalesRecord select obj;
+            if (minDate.HasValue)
+                sales = sales.Where(x => x.Date >= minDate.Value);
+            if(maxDate.HasValue)
+                sales = sales.Where(x => x.Date <= maxDate.Value);
+
+            return View(await sales.Include(x => x.Seller).OrderByDescending(x => x.Date).ToListAsync());
         }
 
         // GET: SalesRecords/Details/5

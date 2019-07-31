@@ -7,8 +7,26 @@
 <p> <h1> @ViewData["Title"] </h1> </p>
 
 <p> <a asp-action="Create" class="btn-link text-success">Create New</a> </p>
-    
 
+<form asp-action="Index" class="form">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <label for="minDate">Min Date</label>
+                    <input type="date" class="form-control" name="minDate" value=@ViewData["minDate"] />
+                </th>
+                <th>
+                    <label for="maxDate">Max Date</label>
+                    <input type="date" class="form-control" name="maxDate" value=@ViewData["maxDate"] />
+                </th>
+                <th>
+                    <button type="submit" class="btn btn-info btn-lg">Filter</button>
+                </th>
+            </tr>
+        </thead>
+    </table>
+</form>    
 <table class="table table-hover">
     <thead class="table-active">
         <tr>
