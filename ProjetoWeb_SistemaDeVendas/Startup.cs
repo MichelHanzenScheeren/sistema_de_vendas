@@ -40,9 +40,8 @@ namespace ProjetoWeb_SistemaDeVendas
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<ProjetoWeb_SistemaDeVendasContext>(options =>
-                    options.UseMySql(Configuration.GetConnectionString("ProjetoWeb_SistemaDeVendasContext"), builder => 
-                    builder.MigrationsAssembly("ProjetoWeb_SistemaDeVendas")));
+            string connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=SistemaDeVendas;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            services.AddDbContext<ProjetoWeb_SistemaDeVendasContext>(options => options.UseSqlServer(connectionString));
 
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();

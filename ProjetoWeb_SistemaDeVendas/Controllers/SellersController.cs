@@ -21,6 +21,7 @@ namespace ProjetoWeb_SistemaDeVendas.Controllers
             _sellerService = sellerService;
             _departmentService = departmentService;
         }
+
         public async Task<IActionResult> Index()
         {
             var sellerList = await _sellerService.FindAllAsync();
@@ -66,7 +67,7 @@ namespace ProjetoWeb_SistemaDeVendas.Controllers
                 await _sellerService.RemoveAsync(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch (IntegrityException erro)
+            catch (IntegrityException)
             {
                 return RedirectToAction(nameof(Error), new { message = "NÃO É POSSÍVEL CONCLUIR O PEDIDO, POIS ELE VIOLA O PRINCÍPIO DE INTEGRIADE REFERENCIAL!!" });
             } 
